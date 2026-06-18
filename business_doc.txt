@@ -1,0 +1,18 @@
+Business Name: Glow Beauty Salon
+
+Hours: Open Monday to Saturday, 10 AM to 8 PM. Closed on Sundays.
+
+Services: Haircuts, facials, bridal makeup packages, manicure and pedicure.
+
+Pricing: Haircut starts at Rs 300. Facial starts at Rs 800. Bridal package starts
+at Rs 15,000 and includes a trial session.
+
+Location: Sanjay Place, Agra.
+
+Contact: Call or WhatsApp +91-XXXXXXXXXX to book an appointment.
+
+Policies: Appointments recommended on weekends. Walk-ins welcome on weekdays.
+Cancellations should be made at least 2 hours in advance.
+
+-- Replace everything above with the real client's actual business info before
+   deploying. Keep it as plain facts/sentences -- no need for special formatting.

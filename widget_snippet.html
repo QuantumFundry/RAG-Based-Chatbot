@@ -1,0 +1,48 @@
+<!-- Paste this snippet into the client's website, just before </body> -->
+<!-- Change RAG_API_URL below to your deployed backend URL once it's live -->
+
+<div id="rag-chat-widget" style="position:fixed;bottom:20px;right:20px;font-family:sans-serif;z-index:9999;">
+  <div id="rag-chat-box" style="display:none;flex-direction:column;width:320px;height:420px;background:#fff;border-radius:12px;box-shadow:0 4px 20px rgba(0,0,0,.2);overflow:hidden;">
+    <div style="background:#1a73e8;color:#fff;padding:12px;font-weight:bold;">Chat with us</div>
+    <div id="rag-log" style="flex:1;padding:10px;overflow-y:auto;font-size:14px;"></div>
+    <div style="display:flex;border-top:1px solid #eee;">
+      <input id="rag-input" placeholder="Type a message..." style="flex:1;border:none;padding:10px;outline:none;">
+      <button id="rag-send" style="border:none;background:#1a73e8;color:#fff;padding:0 16px;cursor:pointer;">Send</button>
+    </div>
+  </div>
+  <button id="rag-toggle" style="width:56px;height:56px;border-radius:50%;background:#1a73e8;color:#fff;border:none;font-size:24px;cursor:pointer;">💬</button>
+</div>
+
+<script>
+const RAG_API_URL = "https://YOUR-DEPLOYED-BACKEND-URL/chat"; // <-- change this after deploying
+
+const box = document.getElementById('rag-chat-box');
+const toggle = document.getElementById('rag-toggle');
+const log = document.getElementById('rag-log');
+const input = document.getElementById('rag-input');
+
+toggle.onclick = () => { box.style.display = box.style.display === 'none' ? 'flex' : 'none'; };
+
+async function ragSend(){
+  const msg = input.value.trim();
+  if(!msg) return;
+  log.innerHTML += `<div style="margin:6px 0;color:#1a73e8;"><b>You:</b> ${msg}</div>`;
+  input.value = '';
+  log.scrollTop = log.scrollHeight;
+  try {
+    const res = await fetch(RAG_API_URL, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({message: msg})
+    });
+    const data = await res.json();
+    log.innerHTML += `<div style="margin:6px 0;"><b>Bot:</b> ${data.answer || "Sorry, something went wrong."}</div>`;
+  } catch(e) {
+    log.innerHTML += `<div style="margin:6px 0;color:red;">Connection error. Please try again.</div>`;
+  }
+  log.scrollTop = log.scrollHeight;
+}
+
+document.getElementById('rag-send').onclick = ragSend;
+input.addEventListener('keydown', e => { if(e.key === 'Enter') ragSend(); });
+</script>
