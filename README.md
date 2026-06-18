@@ -65,4 +65,4 @@ database.
 
 ## Author
 
-Built by Rahat — AI automation tools for local businesses.
+Built by Rahil — AI automation tools for local businesses.
